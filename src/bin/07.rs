@@ -19,19 +19,16 @@ enum HandType {
 }
 
 fn get_hand_type_from_card_counts(counts: &mut [i32]) -> HandType {
-    counts.sort_by(|a, b| b.cmp(a));
-    match counts[0] {
-        5 => return HandType::FiveKind,
-        4 => return HandType::FourKind,
-        3 => match counts[1] {
-            2 => return HandType::FullHouse,
-            _ => return HandType::ThreeKind,
-        },
-        2 => match counts[1] {
-            2 => return HandType::TwoPair,
-            _ => return HandType::OnePair,
-        },
-        _ => HandType::HighCard,
+    counts.sort_by(|a, b| a.cmp(b));
+    match counts {
+        [5] => return HandType::FiveKind,
+        [1, 4] => return HandType::FourKind,
+        [2, 3] => return HandType::FullHouse,
+        [1, 1, 3] => return HandType::ThreeKind,
+        [1, 2, 2] => return HandType::TwoPair,
+        [1, 1, 1, 2] => return HandType::OnePair,
+        [1, 1, 1, 1, 1] => return HandType::HighCard,
+        _ => panic!(),
     }
 }
 
