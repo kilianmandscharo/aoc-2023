@@ -13,18 +13,11 @@ enum LineType {
     Vertical,
 }
 
+#[derive(PartialEq, Eq)]
 struct Line {
     line_type: LineType,
     i: usize,
 }
-
-impl std::cmp::PartialEq for Line {
-    fn eq(&self, other: &Self) -> bool {
-        self.line_type == other.line_type && self.i == other.i
-    }
-}
-
-impl std::cmp::Eq for Line {}
 
 fn check_grid(grid: &Grid) -> Vec<Line> {
     let mut lines: Vec<Line> = Vec::new();
